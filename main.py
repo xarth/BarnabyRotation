@@ -8,8 +8,8 @@ from PIL import ImageGrab
 import webcolors
 from multiprocessing import Process
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def closest_colour(requested_colour):
     min_colours = {}
@@ -55,11 +55,14 @@ def rotation():
 
             if len(keybind) > 0:
                 print(keybind)
-            
+
             # Random sleep in milliseconds to ensure that its  not just being spammed and try and avoid detection
             pause = randint(100, 400) / 1000.0
             sleep(pause)
-            pyautogui.press(keybind.lower())
+            if keybind.startswith('s'):
+                pyautogui.hotkey('shift', keybind.lower().strip('s'))
+            else:
+                pyautogui.press(keybind.lower())
         else:
             print("not in combat")
             sleep(0.3)
