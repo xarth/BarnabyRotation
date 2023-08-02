@@ -7,7 +7,7 @@ from time import sleep
 from PIL import ImageGrab
 import webcolors
 from multiprocessing import Process
-
+import getpixelcolor
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -33,9 +33,7 @@ def get_colour_name(requested_colour):
 
 def combat_check():
     ARE_WE_GOOD = 'No'
-    p2 = Process(target=rotation)
-    is_in_combat = pyautogui.screenshot()
-    is_in_combat_checker = is_in_combat.getpixel((2604, 908))
+    is_in_combat_checker = getpixelcolor.pixel(2604, 908)
     ARE_WE_GOOD = get_colour_name(is_in_combat_checker)
     print(ARE_WE_GOOD)
     return (ARE_WE_GOOD)
@@ -57,10 +55,12 @@ def rotation():
                 print(keybind)
 
             # Random sleep in milliseconds to ensure that its  not just being spammed and try and avoid detection
-            pause = randint(100, 400) / 1000.0
+            pause = randint(50, 250) / 1000.0
             sleep(pause)
             if keybind.startswith('s'):
                 pyautogui.hotkey('shift', keybind.lower().strip('s'))
+            elif keybind.startswith('c'):
+                pyautogui.hotkey('ctrl', keybind.lower().strip('c'))
             else:
                 pyautogui.press(keybind.lower())
         else:
