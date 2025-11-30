@@ -47,16 +47,16 @@ def rotation():
             rotation_array = np.array(rotation)
             cv2.imshow("", rotation_array)
 
-            keybind = pytesseract.image_to_string(rotation,config ='--psm 6')
+            keybind = pytesseract.image_to_string(rotation,config ='--psm 7')
             keybind = keybind.strip()
             keybind = keybind.lower()
 
             if len(keybind) > 0:
                 print(keybind)
 
-            # Random sleep in milliseconds to ensure that its  not just being spammed and try and avoid detection
-            pause = randint(50, 250) / 1000.0
-            sleep(pause)
+            #Random sleep in milliseconds to ensure that its  not just being spammed and try and avoid detection
+            #pause = randint(50, 250) / 1000.0
+            #sleep(pause)
             if keybind.startswith('s'):
                 pyautogui.hotkey('shift', keybind.lower().strip('s'))
             elif keybind.startswith('c'):
